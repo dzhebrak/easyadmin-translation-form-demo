@@ -1,0 +1,46 @@
+version: '3.5'
+
+services:
+    mariadb:
+        image: mariadb:10.11
+        ports:
+            - "9906:3306"
+        volumes:
+            - mariadb:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD:-password}
+            MYSQL_DATABASE: ${DATABASE_NAME:-app}
+        restart: unless-stopped
+        
+    mariadb-test:
+        image: mariadb:10.11
+        ports:
+            - "9907:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD:-password}
+            MYSQL_DATABASE: ${DATABASE_NAME:-app_test}
+        restart: unless-stopped
+    
+    nginx:
+        image: nginx:stable-alpine
+        volumes:
+            - ./:/app
+            - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - "8012:80"
+        links:
+            - php
+    
+    php:
+        build: docker/php
+        links:
+            - mariadb
+            - mariadb-test
+        volumes:
+            - ./:/app
+            - ./docker/php/conf.d/php.ini:/usr/local/etc/php/conf.d/php.ini
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+
+volumes:
+    mariadb: { }

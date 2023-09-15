@@ -1,0 +1,13 @@
+.a2lix_translations > .nav-tabs .nav-item .locale-required:after {
+    background: var(--color-danger);
+    border-radius: 50%;
+    content: "";
+    display: inline-block;
+    filter: opacity(75%);
+    height: 4px;
+    position: relative;
+    right: -2px;
+    top: -8px;
+    width: 4px;
+    z-index: var(--zindex-700);
+}

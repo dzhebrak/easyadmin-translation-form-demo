@@ -1,0 +1,46 @@
+{% block a2lix_translations_widget %}
+    {{ form_errors(form) }}
+
+    <div class="a2lix_translations form-tabs">
+        <ul class="a2lix_translationsLocales nav nav-tabs" role="tablist">
+            {% for translationsFields in form %}
+                {% set locale = translationsFields.vars.name %}
+
+                {% set errorsNumber = 0 %}
+
+                {% for translation in form | filter(translation => translation.vars.name == locale) %}
+                    {% for translationField in translation.children %}
+                        {% if translationField.vars.errors|length %}
+                            {% set errorsNumber = errorsNumber + translationField.vars.errors|length %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+
+                <li class="nav-item">
+                    <a href="#{{ translationsFields.vars.id }}_a2lix_translations-fields" class="nav-link {% if app.request.locale == locale %}active{% endif %}" data-bs-toggle="tab" role="tab">
+                        {{ translationsFields.vars.label|default(locale|humanize)|trans }}
+                        {% if translationsFields.vars.required %}<span class="locale-required"></span>{% endif %}
+                        {% if errorsNumber > 0 %}<span class="badge badge-danger" title="{{ errorsNumber }}">{{ errorsNumber }}</span>{% endif %}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="a2lix_translationsFields tab-content">
+            {% for translationsFields in form %}
+                {% set locale = translationsFields.vars.name %}
+
+                <div id="{{ translationsFields.vars.id }}_a2lix_translations-fields" class="tab-pane {% if app.request.locale == locale %}show active{% endif %} {% if not form.vars.valid %}sonata-ba-field-error{% endif %}" role="tabpanel">
+                    {{ form_errors(translationsFields) }}
+                    {{ form_widget(translationsFields, {'attr': {'class': 'row'}} ) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block a2lix_translations_label %}{% endblock %}
+
+{% block a2lix_translationsForms_widget %}
+    {{ block('a2lix_translations_widget') }}
+{% endblock %}
