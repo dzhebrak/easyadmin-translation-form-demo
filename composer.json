@@ -1,8 +1,20 @@
 {
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
     "minimum-stability": "stable",
     "prefer-stable": true,
+    "homepage": "https://dzhebrak.com/blog/translating-entities-easyadmin-doctrinebehaviors",
+    "keywords": [
+        "symfony",
+        "easyadmin",
+        "translations"
+    ],
+    "authors": [
+        {
+            "name": "Dzmitry Zhebrak",
+            "email": "dmitry@dzhebrak.com"
+        }
+    ],
     "require": {
         "php": ">=8.1",
         "ext-ctype": "*",
