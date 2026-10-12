@@ -7,7 +7,7 @@ This repository is a demonstration of the tutorial described at [https://dzhebra
 
 ## Installation
 
-Clone project and add configure `DATABASE_URL`:
+Clone project, configure `DATABASE_URL`:
 ```bash
 echo "DATABASE_URL=mysql://root:password@mariadb:3306/app?serverVersion=10.11.2-MariaDB&charset=utf8mb4" > .env.local
 ```
