@@ -1,6 +1,6 @@
 export APP_NAME=easyadmintranslationformdemo
-export PHP_CONTAINER_NAME=${APP_NAME}_php_1
-export DB_CONTAINER_NAME=${APP_NAME}_mariadb_1
+export PHP_CONTAINER_NAME=${APP_NAME}-php-1
+export DB_CONTAINER_NAME=${APP_NAME}-mariadb-1
 
 restart:down up
 
@@ -20,7 +20,7 @@ logs:
 	docker-compose -p $$APP_NAME logs --follow
 
 bash:
-	docker exec -it $$PHP_CONTAINER_NAME /bin/bash
+	docker exec -it $$PHP_CONTAINER_NAME /bin/sh
 
 db:
 	docker exec -it $$DB_CONTAINER_NAME mysql
