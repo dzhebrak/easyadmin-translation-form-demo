@@ -18,7 +18,7 @@ class TranslatableTextFilter implements FilterInterface
 
     public static function new(string $propertyName, $label = null): self
     {
-        return (new self())
+        return new self()
             ->setFilterFqcn(__CLASS__)
             ->setProperty($propertyName)
             ->setLabel($label)

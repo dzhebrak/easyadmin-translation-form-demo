@@ -25,9 +25,7 @@ class TranslationsConfigurator implements FieldConfiguratorInterface
 
     public function configure(FieldDto $field, EntityDto $entityDto, AdminContext $context): void
     {
-        $formTypeOptionsFields = [];
-
-        $fieldsCollection = FieldCollection::new(
+        $fieldsCollection = new FieldCollection(
             (array)$field->getCustomOption(TranslationsField::OPTION_FIELDS_CONFIG)
         );
 
@@ -51,13 +49,12 @@ class TranslationsConfigurator implements FieldConfiguratorInterface
             $context->getAssets()->mergeWith($dto->getAssets());
 
             $dto->setFormTypeOption('field_type', $dto->getFormType());
-            $formTypeOptionsFields[$dto->getProperty()] = $dto->getFormTypeOptions();
         }
 
         $field->setFormTypeOptions([
-            'ea_fields'   => $fieldsCollection,
-            'fields'      => $formTypeOptionsFields,
-            'constraints' => [
+            'translatable_class' => $entityDto->getFqcn(),
+            'ea_fields'          => $fieldsCollection,
+            'constraints'        => [
                 new Valid(),
             ],
         ]);

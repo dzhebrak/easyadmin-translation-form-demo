@@ -18,13 +18,13 @@ class TranslationsTypeExtension extends AbstractTypeExtension
         return [TranslationsType::class];
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired('ea_fields');
         $resolver->setAllowedTypes('ea_fields', FieldCollection::class);
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         /** @var FieldCollection $fields */
         $fields = $options['ea_fields'];
@@ -32,7 +32,7 @@ class TranslationsTypeExtension extends AbstractTypeExtension
         foreach ($view->children as $translationView) {
             foreach ($translationView->children as $fieldView) {
                 $fieldView->vars['ea_crud_form'] = [
-                    'ea_field' => $fields->getByProperty($fieldView->vars['name']),
+                    'ea_field' => $fields->getByProperty($fieldView->vars['name'])
                 ];
             }
         }
