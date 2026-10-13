@@ -5,19 +5,19 @@ export DB_CONTAINER_NAME=${APP_NAME}-mariadb-1
 restart:down up
 
 up:
-	docker-compose -p $$APP_NAME up -d
+	docker compose -p $$APP_NAME up -d
 
 down:
-	docker-compose -p $$APP_NAME stop
+	docker compose -p $$APP_NAME stop
 
 build:
-	docker-compose -p $$APP_NAME build
+	docker compose -p $$APP_NAME build
 
-remove: remove_volume
-	docker-compose -p $$APP_NAME rm --force
+remove:
+	docker compose -p $$APP_NAME rm --force
 
 logs:
-	docker-compose -p $$APP_NAME logs --follow
+	docker compose -p $$APP_NAME logs --follow
 
 bash:
 	docker exec -it $$PHP_CONTAINER_NAME /bin/sh
